@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Flat, Complaint
+from .models import Flat, Like, Complaint
 
 
 class FlatAdmin(admin.ModelAdmin):
@@ -9,6 +9,7 @@ class FlatAdmin(admin.ModelAdmin):
     list_display = ('address', 'price', 'new_building', 'construction_year', )
     list_editable = ('new_building', )
     list_filter = ('new_building', 'rooms_number', 'has_balcony', )
+    raw_id_fields = ('liked_by', )
 
 
 class ComplaintAdmin(admin.ModelAdmin):
