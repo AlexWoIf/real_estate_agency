@@ -5,7 +5,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 
 
 class Flat(models.Model):
-    owner = models.CharField('ФИО владельца', max_length=200)
+    owner_deprecated = models.CharField('ФИО владельца', max_length=200)
     owner_pure_phone = PhoneNumberField('Нормализованный номер владельца',
                                         blank=True, )
     owners_phonenumber = models.CharField('Номер владельца', max_length=20)
@@ -64,13 +64,17 @@ class Owner(models.Model):
     owner = models.CharField('ФИО владельца', max_length=200, db_index=True, )
     owners_phonenumber = models.CharField('Номер владельца', max_length=20)
     owner_pure_phone = PhoneNumberField('Нормализованный номер владельца',
-                                        blank=True, db_index=True, )
+                                        blank=True,
+                                        db_index=True, )
     owned_flats = models.ManyToManyField(
                         Flat,
                         verbose_name="Квартиры в собственности",
                         related_name="owned_by",
                         blank=True,
     )
+
+    def __str__(self):
+        return f'{self.owner} ({self.owner_pure_phone.as_international})'
 
 
 class Like(models.Model):
