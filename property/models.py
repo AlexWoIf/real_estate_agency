@@ -68,7 +68,7 @@ class Owner(models.Model):
     )
 
     def __str__(self):
-        return f'{self.owner} ({self.phonenumber.as_international})'
+        return f'{self.owner} ({self.phonenumber})'
 
 
 class Complaint(models.Model):

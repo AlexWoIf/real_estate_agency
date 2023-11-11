@@ -9,7 +9,7 @@ COUNTRY = 'RU'
 
 def convert_phonenumbers(apps, schema_editor):
     Flat = apps.get_model('property', 'Flat')
-    for flat in Flat.objects.all(): # Use this filter for testing: filter(owners_phonenumber='+70000000000'):
+    for flat in Flat.objects.all().iterator(chunk_size=1000): # Use this filter for testing: filter(owners_phonenumber='+70000000000'):
         num = PhoneNumber.from_string(flat.owners_phonenumber, COUNTRY)
         if num.is_valid():
             flat.owner_pure_phone = num.as_e164
