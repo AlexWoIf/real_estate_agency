@@ -56,10 +56,12 @@ class Flat(models.Model):
 
 
 class Owner(models.Model):
-    owner = models.CharField('ФИО владельца', max_length=200, db_index=True, )
-    phonenumber = PhoneNumberField('Номер владельца',
-                                        blank=True,
-                                        db_index=True, )
+    name = models.CharField('ФИО владельца', max_length=200, db_index=True, )
+    phonenumber = PhoneNumberField(
+                        'Номер владельца',
+                        blank=True,
+                        db_index=True,
+    )
     owned_flats = models.ManyToManyField(
                         Flat,
                         verbose_name="Квартиры в собственности",
@@ -68,7 +70,7 @@ class Owner(models.Model):
     )
 
     def __str__(self):
-        return f'{self.owner} ({self.phonenumber})'
+        return f'{self.name} ({self.phonenumber})'
 
 
 class Complaint(models.Model):
